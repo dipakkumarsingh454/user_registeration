@@ -2,9 +2,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:user_registration/screens/login.dart';
-
 import 'package:user_registration/models/users.dart';
+import 'controllers/auth_controller.dart';
 
 
 class Home extends StatefulWidget {
@@ -15,9 +14,9 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  late String uid;
-  late String mobile;
 
+  final AuthController _authController = Get.put(AuthController());
+  CollectionReference users = FirebaseFirestore.instance.collection('users');
   User? user = FirebaseAuth.instance.currentUser;
   UserModel loggedInUser = UserModel();
 
@@ -33,23 +32,28 @@ class _HomeState extends State<Home> {
       setState(() {});
     });
   }
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Home'),
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.logout),
-            onPressed: () async {
-              await FirebaseAuth.instance.signOut();
-              Get.to(()=>const Login());
-            },
+        centerTitle: true,
+      ),
+      body: Column(
+        children: [
+          ListTile(
+            leading: const Icon(Icons.person),
+            title: Text("${loggedInUser.name}"),
+          ),
+          const SizedBox(height: 20,),
+          ElevatedButton(onPressed: () {
+            _authController.logout();
+          },
+              child: const Text("Logout"),
           )
         ],
-      ),
-      body: Center(
-        child: Text("${loggedInUser.name}"),
       ),
     );
   }

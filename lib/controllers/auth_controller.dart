@@ -1,6 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:user_registration/screens/login.dart';
+
 
 class AuthController extends GetxController with SingleGetTickerProviderMixin {
 
@@ -21,8 +23,11 @@ class AuthController extends GetxController with SingleGetTickerProviderMixin {
 
   }
 
-  void showSnackBar(BuildContext context, String text) {
-    final snackBar = SnackBar(content: Text(text));
-    ScaffoldMessenger.of(context).showSnackBar(snackBar);
+
+
+  void logout() async{
+    await FirebaseAuth.instance.signOut();
+    Get.offAll(()=> const Login());
   }
+
 }

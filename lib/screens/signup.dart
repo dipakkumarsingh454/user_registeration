@@ -189,6 +189,7 @@ class _SignupState extends State<Signup> {
                     ElevatedButton(
                       onPressed: () async{
                         if (form.valid) {
+                          showLoaderDialog(context);
                           username = form.value.values.elementAt(0).toString();
                           await _auth.createUserWithEmailAndPassword(email: form.value.values.elementAt(1).toString().trim(),
                               password: form.value.values.elementAt(2).toString().trim())
@@ -237,9 +238,25 @@ class _SignupState extends State<Signup> {
         .set(userModel.toMap());
 
     print("account created successfully");
+    Navigator.pop(context);
+    Get.offAll(()=>const Home());
 
-    Get.to(()=>const Home());
+  }
 
+  showLoaderDialog(BuildContext context){
+    AlertDialog alert=AlertDialog(
+      content: Row(
+        children: [
+          const CircularProgressIndicator(),
+          Container(margin: const EdgeInsets.only(left: 27),child:const Text("Signing In ..." )),
+        ],),
+    );
+    showDialog(barrierDismissible: false,
+      context:context,
+      builder:(BuildContext context){
+        return alert;
+      },
+    );
   }
 
 }

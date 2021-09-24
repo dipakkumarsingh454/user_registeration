@@ -98,7 +98,7 @@ class _LoginState extends State<Login> {
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     InkWell(
-                      onTap: () => Get.to(()=>ForgotPassword()),
+                      onTap: () => Get.to(()=>const ForgotPassword()),
                       child: const Text("Forgot Password ?", style: TextStyle(
                           color: Colors.blue, fontWeight: FontWeight.bold
                       ),),
@@ -140,9 +140,11 @@ class _LoginState extends State<Login> {
                     ElevatedButton(
                       onPressed: () async{
                         if (form.valid) {
+                          showLoaderDialog(context);
                           await _auth.signInWithEmailAndPassword(email: form.value.values.first.toString().trim(), password: form.value.values.last.toString().trim())
                               .then((uid) => {
-                            Get.to(()=>Home())
+                                Navigator.pop(context),
+                                Get.offAll(()=>const Home())
                           }).catchError((e){
                             print(e!.message);
                           });
@@ -168,7 +170,7 @@ class _LoginState extends State<Login> {
                     const Text("Don't have an account?"),
                     TextButton(
                       onPressed: () {
-                        Get.offAll(()=>Signup());
+                        Get.offAll(()=>const Signup());
                       },
                       child: const Text("Create Account", style: TextStyle(
                           color: Colors.blue
@@ -182,6 +184,22 @@ class _LoginState extends State<Login> {
           },
         ),
       ),
+    );
+  }
+
+  showLoaderDialog(BuildContext context){
+    AlertDialog alert=AlertDialog(
+      content: Row(
+        children: [
+          const CircularProgressIndicator(),
+          Container(margin: const EdgeInsets.only(left: 27),child:const Text("Logging In ..." )),
+        ],),
+    );
+    showDialog(barrierDismissible: false,
+      context:context,
+      builder:(BuildContext context){
+        return alert;
+      },
     );
   }
 }

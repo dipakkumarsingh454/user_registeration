@@ -6,6 +6,8 @@ import 'package:get/get.dart';
 import 'package:user_registration/screens/signup.dart';
 import 'package:user_registration/home.dart';
 
+import 'login.dart';
+
 
 class ForgotPassword extends StatefulWidget {
   const ForgotPassword({Key? key}) : super(key: key);
@@ -79,9 +81,11 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                     ElevatedButton(
                       onPressed: () async{
                         if (form.valid) {
+                          showLoaderDialog(context);
                           await _auth.sendPasswordResetEmail(email: form.value.values.first.toString().trim())
                               .then((uid) => {
-                            //Get.to(()=>Home())
+                                Navigator.pop(context),
+                            Get.offAll(()=>const Login())
                           }).catchError((e){
                             print(e!.message);
                           });
@@ -99,6 +103,22 @@ class _ForgotPasswordState extends State<ForgotPassword> {
           },
         ),
       ),
+    );
+  }
+
+  showLoaderDialog(BuildContext context){
+    AlertDialog alert=AlertDialog(
+      content: Row(
+        children: [
+          const CircularProgressIndicator(),
+          Container(margin: const EdgeInsets.only(left: 27),child:const Text("Sending Link ..." )),
+        ],),
+    );
+    showDialog(barrierDismissible: false,
+      context:context,
+      builder:(BuildContext context){
+        return alert;
+      },
     );
   }
 }

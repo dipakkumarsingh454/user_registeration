@@ -35,15 +35,10 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
-      title: 'Real Time',
+      title: 'User Registration',
       debugShowCheckedModeBanner: false,
-      /*theme: ThemeData(
-          primarySwatch: Colors.blue,
-          visualDensity: VisualDensity.adaptivePlatformDensity,
-          fontFamily: 'NotoSans',
-        ),*/
       theme: ThemeData.light(),
-      home: const Signup(),
+      home: const Login(),
     );
 
   }
