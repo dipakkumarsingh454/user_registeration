@@ -41,7 +41,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
             return Column(
               children: [
                 const Text("Enter your Registered Email Below",
-                  style: TextStyle(color: Colors.black26, fontWeight: FontWeight.bold),
+                  style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
                   textAlign: TextAlign.center,
                 ),
                 const SizedBox(height: 16.0,),

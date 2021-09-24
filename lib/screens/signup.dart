@@ -69,7 +69,7 @@ class _SignupState extends State<Signup> {
                   "OR",
                   textAlign: TextAlign.center,
                   style: TextStyle(
-                      color: Colors.black26, fontWeight: FontWeight.bold
+                      color: Colors.black, fontWeight: FontWeight.bold
                   ),
                 ),
                 const SizedBox(height: 10),
@@ -77,7 +77,7 @@ class _SignupState extends State<Signup> {
                   "Create a new Account",
                   textAlign: TextAlign.center,
                   style: TextStyle(
-                      color: Colors.black26, fontWeight: FontWeight.bold
+                      color: Colors.black, fontWeight: FontWeight.bold
                   ),
                 ),
                 const SizedBox(height: 10),

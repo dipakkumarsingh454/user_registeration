@@ -170,7 +170,7 @@ class _LoginState extends State<Login> {
                     const Text("Don't have an account?"),
                     TextButton(
                       onPressed: () {
-                        Get.offAll(()=>const Signup());
+                        Get.to(()=>const Signup());
                       },
                       child: const Text("Create Account", style: TextStyle(
                           color: Colors.blue
